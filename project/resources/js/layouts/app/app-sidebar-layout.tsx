@@ -2,6 +2,7 @@ import { AppContent } from '@/components/app-content';
 import { AppShell } from '@/components/app-shell';
 import { AppSidebar } from '@/components/app-sidebar';
 import { AppSidebarHeader } from '@/components/app-sidebar-header';
+import { MainNav } from '@/components/MainNav';
 import { type BreadcrumbItem } from '@/types';
 import { type PropsWithChildren } from 'react';
 
@@ -12,6 +13,9 @@ export default function AppSidebarLayout({
     return (
         <AppShell variant="sidebar">
             <AppSidebar />
+            <header>
+                <MainNav isLoggedIn={false} />
+            </header>
             <AppContent variant="sidebar" className="overflow-x-hidden">
                 <AppSidebarHeader breadcrumbs={breadcrumbs} />
                 {children}
