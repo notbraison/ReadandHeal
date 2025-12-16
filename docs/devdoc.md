@@ -7,8 +7,7 @@ placeholders for future content. - books, pictures(international - asians, afric
 
 Standard backend structure:
 
-src/ folder for source code
-src/index.js (or server.js) as entry point
-.env.example for environment variables
-.gitignore file (to exclude node_modules, .env, etc.)
-README.md for documentation
+
+
+deposit
+
