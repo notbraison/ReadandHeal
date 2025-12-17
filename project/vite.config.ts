@@ -4,23 +4,32 @@ import react from '@vitejs/plugin-react';
 import laravel from 'laravel-vite-plugin';
 import { defineConfig } from 'vite';
 
-export default defineConfig({
-    plugins: [
-        laravel({
-            input: ['resources/css/app.css', 'resources/js/app.tsx'],
-            ssr: 'resources/js/ssr.tsx',
-            refresh: true,
-        }),
-        react({
-            babel: {
-                plugins: ['babel-plugin-react-compiler'],
-            },
-        }),
-        tailwindcss(),
+const plugins = [
+    laravel({
+        input: ['resources/css/app.css', 'resources/js/app.tsx'],
+        ssr: 'resources/js/ssr.tsx',
+        refresh: true,
+    }),
+    react({
+        babel: {
+            plugins: ['babel-plugin-react-compiler'],
+        },
+    }),
+    tailwindcss(),
+];
+
+// Wayfinder needs `php artisan` to be available. Disable it in environments
+// (like Docker's Node build stage) where we set DISABLE_WAYFINDER=1.
+if (!process.env.DISABLE_WAYFINDER) {
+    plugins.push(
         wayfinder({
             formVariants: true,
         }),
-    ],
+    );
+}
+
+export default defineConfig({
+    plugins,
     esbuild: {
         jsx: 'automatic',
     },

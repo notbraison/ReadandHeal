@@ -9,6 +9,7 @@ import {
     SidebarMenu,
     SidebarMenuButton,
     SidebarMenuItem,
+
 } from '@/components/ui/sidebar';
 import { dashboard, home } from '@/routes';
 import { type NavItem } from '@/types';
@@ -38,13 +39,19 @@ const footerNavItems: NavItem[] = [
 ];
 
 export function AppSidebar() {
+
+
     return (
         <Sidebar collapsible="icon" variant="inset">
             <SidebarHeader>
                 <SidebarMenu>
                     <SidebarMenuItem>
-                        <SidebarMenuButton size="lg" asChild>
-                            <Link href={dashboard()} prefetch>
+                        <SidebarMenuButton
+                            size="lg"
+                            asChild
+                            className="cursor-pointer"
+                        >
+                            <Link href={home()} prefetch>
                                 <AppLogo />
                             </Link>
                         </SidebarMenuButton>

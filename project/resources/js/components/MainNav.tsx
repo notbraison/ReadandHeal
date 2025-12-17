@@ -1,9 +1,7 @@
+import { Link, router, usePage } from '@inertiajs/react';
 import * as React from 'react';
-// We'll assume you use the Link component from 'react-router-dom'
-// or an Inertia-specific Link component, instead of 'next/link'.
-import { Link } from '@inertiajs/react';
 
-import { BookOpen, Heart, Menu, Phone } from 'lucide-react';
+import { Menu } from 'lucide-react';
 
 import {
     NavigationMenu,
@@ -13,26 +11,24 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
     navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu'; // Adjust paths based on your actual structure
+} from '@/components/ui/navigation-menu';
 
-import { Button } from '@/components/ui/button'; // Assuming you use the Button component
-import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'; // For mobile menu
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 
 // --- Helper Components ---
 
-// Reusable component for the dropdown list items
 const ListItem = React.forwardRef<
-    React.ElementRef<'a'>,
+    HTMLAnchorElement,
     React.ComponentPropsWithoutRef<'a'> & { title: string }
->(({ className, title, children, href, ...props }, ref) => {
+>(({ className, title, children, href }, ref) => {
     return (
         <li>
             <NavigationMenuLink asChild>
                 <Link
-                    to={href || '#'} // Use 'to' for react-router-dom
-                    ref={ref} // Pass the ref
-                    className={`block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${className}`} // Merge classNames
-                    {...props}
+                    href={href || '#'}
+                    ref={ref}
+                    className={`block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${className}`}
                 >
                     <div className="text-sm leading-none font-medium">
                         {title}
@@ -49,7 +45,6 @@ ListItem.displayName = 'ListItem';
 
 // --- Read & Heal Specific Data ---
 
-// Your 9 therapy categories/services (for the Services dropdown)
 const therapeuticCategories: {
     title: string;
     href: string;
@@ -89,118 +84,113 @@ const therapeuticCategories: {
     // Add remaining 3 categories as needed...
 ];
 
+// --- Routes / Types ---
+import { dashboard, login, logout, register } from '@/routes';
+import { type SharedData } from '@/types';
+
 // --- Main Component ---
 
-interface MainNavProps {
-    isLoggedIn: boolean;
-    // You would pass the actual logout function here
-    onLogout?: () => void;
-}
+export function MainNav() {
+    const { auth } = usePage<SharedData>().props;
+    const isLoggedIn = Boolean(auth?.user);
 
-export function MainNav({ isLoggedIn, onLogout }: MainNavProps) {
-    // Note: Assuming useIsMobile() hook is available for responsiveness.
-    // If not, use standard Tailwind responsive classes.
+    const handleLogout = () => {
+        router.post(logout());
+    };
 
     return (
         // Wrapper for the entire Navbar structure
-        <div className="border-b bg-white">
+        <div className="bg-background border-b border-border shadow-sm">
             <div className="container flex h-16 max-w-[1400px] items-center justify-between px-4 sm:px-6">
-                {/* 1. Brand/Logo */}
+                {/* 1. Brand/Logo (Left) */}
                 <div className="flex items-center space-x-4">
-                    <Link
-                        to="/"
-                        className="text-xl font-bold tracking-tight text-[#5C946E]"
-                    >
-                        <Heart className="mr-1 inline-block h-6 w-6" />
+                    <Link href={dashboard()} className="rh-brand-logo">
                         Read & Heal
                     </Link>
                 </div>
 
-                {/* 2. Desktop Navigation (Hidden on small screens) */}
-                <NavigationMenu className="hidden lg:flex">
-                    <NavigationMenuList>
-                        {/* Static Link: Library */}
-                        <NavigationMenuItem>
-                            <Link to="/library" legacyBehavior passHref>
+                {/* 2. Desktop Navigation (Centered Links) */}
+                <div className="hidden flex-1 justify-center lg:flex">
+                    <NavigationMenu>
+                        {/* NavigationMenuList is the flex container for the links, automatically aligning them horizontally */}
+                        <NavigationMenuList className="flex items-center gap-1">
+                            {/* Static Link: Library */}
+                            <NavigationMenuItem>
                                 <NavigationMenuLink
-                                    className={navigationMenuTriggerStyle()}
+                                    asChild
+                                    className={`${navigationMenuTriggerStyle()} min-w-[100px] justify-center text-[#f4c762] hover:bg-[#1e293b] hover:text-[#f4c762]`}
                                 >
-                                    <BookOpen className="mr-2 h-4 w-4" />
-                                    Library
+                                    <Link href="/library">booksh</Link>
                                 </NavigationMenuLink>
-                            </Link>
-                        </NavigationMenuItem>
+                            </NavigationMenuItem>
 
-                        {/* Dropdown: Services (Therapy Categories) */}
-                        <NavigationMenuItem>
-                            <NavigationMenuTrigger>
-                                Services
-                            </NavigationMenuTrigger>
-                            <NavigationMenuContent>
-                                <ul className="grid w-[400px] gap-2 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
-                                    {therapeuticCategories.map((item) => (
-                                        <ListItem
-                                            key={item.title}
-                                            title={item.title}
-                                            href={item.href}
-                                        >
-                                            {item.description}
-                                        </ListItem>
-                                    ))}
-                                </ul>
-                            </NavigationMenuContent>
-                        </NavigationMenuItem>
+                            {/* Dropdown: Services (Therapy Categories) */}
+                            <NavigationMenuItem>
+                                <NavigationMenuTrigger className="min-w-[100px] justify-center text-[#f4c762] hover:bg-[#1e293b] hover:text-[#f4c762]">
+                                    Services
+                                </NavigationMenuTrigger>
+                                <NavigationMenuContent>
+                                    <ul className="grid w-[400px] gap-2 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px]">
+                                        {therapeuticCategories.map((item) => (
+                                            <ListItem
+                                                key={item.title}
+                                                title={item.title}
+                                                href={item.href}
+                                            >
+                                                {item.description}
+                                            </ListItem>
+                                        ))}
+                                    </ul>
+                                </NavigationMenuContent>
+                            </NavigationMenuItem>
 
-                        {/* Static Link: About Us */}
-                        <NavigationMenuItem>
-                            <Link to="/about" legacyBehavior passHref>
+                            {/* Static Link: About Us */}
+                            <NavigationMenuItem>
                                 <NavigationMenuLink
-                                    className={navigationMenuTriggerStyle()}
+                                    asChild
+                                    className={`${navigationMenuTriggerStyle()} min-w-[100px] justify-center text-[#f4c762] hover:bg-[#1e293b] hover:text-[#f4c762]`}
                                 >
-                                    About Us
+                                    <Link href="/about">About Us</Link>
                                 </NavigationMenuLink>
-                            </Link>
-                        </NavigationMenuItem>
+                            </NavigationMenuItem>
 
-                        {/* Static Link: Contact */}
-                        <NavigationMenuItem>
-                            <Link to="/contact" legacyBehavior passHref>
+                            {/* Static Link: Contact */}
+                            <NavigationMenuItem>
                                 <NavigationMenuLink
-                                    className={navigationMenuTriggerStyle()}
+                                    asChild
+                                    className={`${navigationMenuTriggerStyle()} min-w-[100px] justify-center text-[#f4c762] hover:bg-[#1e293b] hover:text-[#f4c762]`}
                                 >
-                                    <Phone className="mr-2 h-4 w-4" />
-                                    Contact
+                                    <Link href="/contact">Contact</Link>
                                 </NavigationMenuLink>
-                            </Link>
-                        </NavigationMenuItem>
-                    </NavigationMenuList>
-                </NavigationMenu>
+                            </NavigationMenuItem>
+                        </NavigationMenuList>
+                    </NavigationMenu>
+                </div>
 
-                {/* 3. Auth/User Buttons (Desktop) */}
+                {/* 3. Auth/User Buttons (Right) */}
                 <div className="hidden items-center space-x-2 lg:flex">
                     {isLoggedIn ? (
-                        <>
-                            <Button variant="ghost" asChild>
-                                <Link to="/dashboard">Dashboard</Link>
-                            </Button>
-                            <Button
-                                onClick={onLogout}
-                                variant="outline"
-                                className="border-[#5C946E] text-[#5C946E] hover:bg-red-50 hover:text-red-600"
-                            >
-                                Logout
-                            </Button>
-                        </>
+                        <Button
+                            onClick={handleLogout}
+                            variant="outline"
+                            className="border-[#f4c762] text-[#f4c762] hover:bg-red-50 hover:text-red-600"
+                        >
+                            Logout
+                        </Button>
                     ) : (
                         <>
-                            <Button variant="ghost" asChild>
-                                <Link to="/login">Log In</Link>
+                            <Button
+                                variant="outline"
+                                asChild
+                                className="text-primary border-primary hover:bg-primary/10"
+                            >
+                                <Link href={login()}>Log In</Link>
                             </Button>
                             <Button
                                 asChild
-                                className="bg-[#5C946E] hover:bg-[#4A7A59]"
+                                className="bg-[#f4c762] hover:bg-[#d9aa35]"
                             >
-                                <Link to="/register">Join Read & Heal</Link>
+                                <Link href={register()}>Join Read & Heal</Link>
                             </Button>
                         </>
                     )}
@@ -217,59 +207,56 @@ export function MainNav({ isLoggedIn, onLogout }: MainNavProps) {
                         side="right"
                         className="w-[300px] sm:w-[400px]"
                     >
-                        <nav className="flex flex-col space-y-4 pt-6">
-                            {/* Mobile Links */}
-                            <Link to="/" className="text-lg font-semibold">
+                        <nav className="flex flex-col space-y-4 pt-6 text-[#f4c762]">
+                            <Link
+                                href={dashboard()}
+                                className="text-lg font-semibold"
+                            >
                                 Home
                             </Link>
                             <Link
-                                to="/library"
+                                href="/library"
                                 className="text-lg font-semibold"
                             >
                                 Library
                             </Link>
                             <Link
-                                to="/services"
+                                href="/services"
                                 className="text-lg font-semibold"
                             >
                                 Services
                             </Link>
-                            <Link to="/about" className="text-lg font-semibold">
+                            <Link
+                                href="/about"
+                                className="text-lg font-semibold"
+                            >
                                 About Us
                             </Link>
                             <Link
-                                to="/contact"
+                                href="/contact"
                                 className="text-lg font-semibold"
                             >
                                 Contact
                             </Link>
 
-                            {/* Mobile Auth Buttons */}
                             <div className="mt-6 flex flex-col space-y-2">
                                 {isLoggedIn ? (
-                                    <>
-                                        <Button variant="ghost" asChild>
-                                            <Link to="/dashboard">
-                                                Dashboard
-                                            </Link>
-                                        </Button>
-                                        <Button
-                                            onClick={onLogout}
-                                            variant="outline"
-                                        >
-                                            Logout
-                                        </Button>
-                                    </>
+                                    <Button
+                                        onClick={handleLogout}
+                                        variant="outline"
+                                    >
+                                        Logout
+                                    </Button>
                                 ) : (
                                     <>
                                         <Button asChild variant="secondary">
-                                            <Link to="/login">Log In</Link>
+                                            <Link href={login()}>Log In</Link>
                                         </Button>
                                         <Button
                                             asChild
-                                            className="bg-[#5C946E] hover:bg-[#4A7A59]"
+                                            className="bg-[#f4c762] hover:bg-[#d9aa35]"
                                         >
-                                            <Link to="/register">Join</Link>
+                                            <Link href={register()}>Join</Link>
                                         </Button>
                                     </>
                                 )}

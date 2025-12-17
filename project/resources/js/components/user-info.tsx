@@ -6,10 +6,13 @@ export function UserInfo({
     user,
     showEmail = false,
 }: {
-    user: User;
+    user: User | null; // Allow null
     showEmail?: boolean;
 }) {
     const getInitials = useInitials();
+    if (user === null) {
+        return null;
+    }
 
     return (
         <>
