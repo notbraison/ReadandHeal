@@ -1,16 +1,18 @@
+orinabraison@gmail.com passpass
+
 Phase 1: Core Platform & Content Management
 
 This phase focuses on the Digital Library and Content Platform types (sections 3A and 3B of your plan).
+
 1. Database Schema & Models (Laravel)
 
 You need models to manage the books, categories, and user access.
 
-   User Model: Use Laravel's default User model for authentication.
-        id
-         name
-         email
-         password
-
+User Model: Use Laravel's default User model for authentication.
+id
+name
+email
+password
 
     Book Model:
         id
@@ -57,15 +59,16 @@ The Laravel backend needs an Admin interface to easily manage the library conten
 3. Frontend Pages (React)
 
 Modify the existing scaffolded pages and add new ones to match your "Required Website Pages (Minimum)" (Section 4).
-Page	Description	Key Components
-Homepage	Clear brand promise, key message ("reading as therapy"), and entry points to categories.	Static content, featured categories/books.
-Services	List and describe all 9 therapy categories.	Dynamic list pulling from the Category Model.
-Library/Gallery	Visual display of all books, filterable by category.	Dynamic grid/list pulling from the Book Model. Show only cover, title, and therapeutic focus.
-About Us	Static content (Mission, Vision, etc.).	Static content.
-Contact Page	Form for inquiries.	Basic React form with Laravel backend route.
+Page Description Key Components
+Homepage Clear brand promise, key message ("reading as therapy"), and entry points to categories. Static content, featured categories/books.
+Services List and describe all 9 therapy categories. Dynamic list pulling from the Category Model.
+Library/Gallery Visual display of all books, filterable by category. Dynamic grid/list pulling from the Book Model. Show only cover, title, and therapeutic focus.
+About Us Static content (Mission, Vision, etc.). Static content.
+Contact Page Form for inquiries. Basic React form with Laravel backend route.
 🔒 Phase 2: Security, Unstealable Content & Access Control
 
 This is the most critical and complex part, ensuring the books are "unstealable and uncopiable."
+
 1. Secure File Storage & Delivery (Laravel)
 
 You cannot simply link to the PDF/eBook file path, as users could download and share the URL.
@@ -107,6 +110,7 @@ Create a custom Laravel Middleware that sits on all reading routes (/dashboard/r
 💳 Phase 3: E-commerce & Payment Integration
 
 This phase addresses the Subscription/Digital Product type (Section 3C).
+
 1. Payment Integration Logic (Laravel)
 
 You need to integrate payment processing with your user/access logic.

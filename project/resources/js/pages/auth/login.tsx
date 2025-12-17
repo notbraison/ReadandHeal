@@ -9,6 +9,7 @@ import AuthLayout from '@/layouts/auth-layout';
 import { register } from '@/routes';
 import { store } from '@/routes/login';
 import { request } from '@/routes/password';
+import { useState } from 'react';
 import { Form, Head } from '@inertiajs/react';
 
 interface LoginProps {
@@ -22,6 +23,8 @@ export default function Login({
     canResetPassword,
     canRegister,
 }: LoginProps) {
+    const [showPassword, setShowPassword] = useState(false);
+
     return (
         <AuthLayout
             title="Log in to your account"
@@ -47,7 +50,7 @@ export default function Login({
                                     autoFocus
                                     tabIndex={1}
                                     autoComplete="email"
-                                    placeholder="email@example.com"
+                                    placeholder="email@example.example"
                                 />
                                 <InputError message={errors.email} />
                             </div>
@@ -59,7 +62,7 @@ export default function Login({
                                         <TextLink
                                             href={request()}
                                             className="ml-auto text-sm"
-                                            tabIndex={5}
+                                            tabIndex={6}
                                         >
                                             Forgot password?
                                         </TextLink>
@@ -67,7 +70,7 @@ export default function Login({
                                 </div>
                                 <Input
                                     id="password"
-                                    type="password"
+                                    type={showPassword ? 'text' : 'password'}
                                     name="password"
                                     required
                                     tabIndex={2}
@@ -84,12 +87,21 @@ export default function Login({
                                     tabIndex={3}
                                 />
                                 <Label htmlFor="remember">Remember me</Label>
+                                <Button
+                                    type="button"
+                                    variant="link"
+                                    onClick={() => setShowPassword((prev) => !prev)}
+                                    className="ml-auto p-0 text-sm h-auto"
+                                    tabIndex={4}
+                                >
+                                    {showPassword ? 'Hide' : 'Show'} Password
+                                </Button>
                             </div>
 
                             <Button
                                 type="submit"
                                 className="mt-4 w-full"
-                                tabIndex={4}
+                                tabIndex={5}
                                 disabled={processing}
                                 data-test="login-button"
                             >
@@ -101,7 +113,7 @@ export default function Login({
                         {canRegister && (
                             <div className="text-center text-sm text-muted-foreground">
                                 Don't have an account?{' '}
-                                <TextLink href={register()} tabIndex={5}>
+                                <TextLink href={register()} tabIndex={7}>
                                     Sign up
                                 </TextLink>
                             </div>

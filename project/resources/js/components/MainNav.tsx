@@ -30,7 +30,8 @@ const ListItem = React.forwardRef<
             <NavigationMenuLink asChild>
                 <Link
                     to={href || '#'} // Use 'to' for react-router-dom
-                    className="block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                    ref={ref} // Pass the ref
+                    className={`block space-y-1 rounded-md p-3 leading-none no-underline transition-colors outline-none select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground ${className}`} // Merge classNames
                     {...props}
                 >
                     <div className="text-sm leading-none font-medium">
