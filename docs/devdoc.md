@@ -1,4 +1,4 @@
--- Active: 1764031361797@@127.0.0.1@3306
+
 orinabraison@gmail.com passpass
 
 Phase 1: Core Platform & Content Management
@@ -151,3 +151,20 @@ Use official SDKs for broader reach.
     Build the Admin Panel (CRUD) so you can start adding your curated therapeutic books.
 
     Create the Frontend Library Page (Section 4) in React to dynamically pull and display the book covers and short descriptions from the Laravel API.
+
+
+
+
+
+
+
+
+
+
+
+navbar
+
+Exclude Footer From Certain Pages login,register
+Adjust spacing so the footer visually aligns with your sidebar width
+Create a compact footer for dashboard pages and a full footer for public pages
+Refactor this into a PublicLayout vs AppLayout split

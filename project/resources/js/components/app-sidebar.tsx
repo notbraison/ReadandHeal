@@ -20,19 +20,18 @@ const mainNavItems: NavItem[] = [
         icon: House,
     },
     {
+        title: 'Library',
+        href: '',
+        icon: Folder,
+    },
+    {
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
     },
 ];
 
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Library',
-        href: '',
-        icon: Folder,
-    },
-];
+const footerNavItems: NavItem[] = [];
 
 export function AppSidebar() {
     const { toggleSidebar, state } = useSidebar();

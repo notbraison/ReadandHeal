@@ -147,7 +147,7 @@ export function Navbar() {
                                     asChild
                                     className={`${navigationMenuTriggerStyle()} min-w-[100px] justify-center text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-slate-800 dark:hover:text-gray-100`}
                                 >
-                                    <Link href="/about">About Us</Link>
+                                    <Link href="/contact">Contact Us</Link>
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
 
@@ -157,7 +157,7 @@ export function Navbar() {
                                     asChild
                                     className={`${navigationMenuTriggerStyle()} min-w-[100px] justify-center text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-slate-800 dark:hover:text-gray-100`}
                                 >
-                                    <Link href="/contact">Contact</Link>
+                                    <Link href="/cart">Cart</Link>
                                 </NavigationMenuLink>
                             </NavigationMenuItem>
                         </NavigationMenuList>

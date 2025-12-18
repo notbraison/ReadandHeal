@@ -29,8 +29,19 @@ if (!process.env.DISABLE_WAYFINDER) {
 }
 
 export default defineConfig({
-    plugins,
+    plugins, // ← This was missing!
+    resolve: {
+        alias: {
+            '@': '/resources/js',
+        },
+    },
     esbuild: {
         jsx: 'automatic',
+    },
+    server: {
+        host: 'localhost',
+        port: 5173,
+        strictPort: true,
+        cors: true,
     },
 });
