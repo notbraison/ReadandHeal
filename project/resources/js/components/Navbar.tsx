@@ -91,7 +91,7 @@ import { type SharedData } from '@/types';
 
 // --- Main Component ---
 
-export function MainNav() {
+export function Navbar() {
     const { auth } = usePage<SharedData>().props;
     const isLoggedIn = Boolean(auth?.user);
 
@@ -101,21 +101,21 @@ export function MainNav() {
 
     return (
         // Wrapper for the entire Navbar structure
-        <div className="bg-[#020617]/95 shadow-md backdrop-blur">
+        <div className="border-b border-gray-200 bg-white shadow-md dark:border-gray-800 dark:bg-slate-950">
             <div className="container flex h-16 max-w-[1400px] items-center justify-between px-4 sm:px-6">
                 {/* 1. Brand/Logo (Left) */}
                 <div className="flex items-center space-x-4"></div>
 
                 {/* 2. Desktop Navigation (Centered Links) */}
                 <div className="hidden flex-1 justify-center lg:flex">
-                    <NavigationMenu className="text-[#f4c762]">
+                    <NavigationMenu className="text-gray-700 dark:text-gray-300">
                         {/* NavigationMenuList is the flex container for the links, automatically aligning them horizontally */}
                         <NavigationMenuList className="flex items-center gap-1">
                             {/* Static Link: Library */}
                             <NavigationMenuItem>
                                 <NavigationMenuLink
                                     asChild
-                                    className={`${navigationMenuTriggerStyle()} min-w-[100px] justify-center text-[#f4c762] hover:bg-[#1e293b] hover:text-[#f4c762]`}
+                                    className={`${navigationMenuTriggerStyle()} min-w-[100px] justify-center text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-slate-800 dark:hover:text-gray-100`}
                                 >
                                     <Link href="/library">Bookshop</Link>
                                 </NavigationMenuLink>
@@ -123,7 +123,7 @@ export function MainNav() {
 
                             {/* Dropdown: Services (Therapy Categories) */}
                             <NavigationMenuItem>
-                                <NavigationMenuTrigger className="min-w-[100px] justify-center text-[#f4c762] hover:bg-[#1e293b] hover:text-[#f4c762]">
+                                <NavigationMenuTrigger className="min-w-[100px] justify-center text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-slate-800 dark:hover:text-gray-100">
                                     Services
                                 </NavigationMenuTrigger>
                                 <NavigationMenuContent>
@@ -145,7 +145,7 @@ export function MainNav() {
                             <NavigationMenuItem>
                                 <NavigationMenuLink
                                     asChild
-                                    className={`${navigationMenuTriggerStyle()} min-w-[100px] justify-center text-[#f4c762] hover:bg-[#1e293b] hover:text-[#f4c762]`}
+                                    className={`${navigationMenuTriggerStyle()} min-w-[100px] justify-center text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-slate-800 dark:hover:text-gray-100`}
                                 >
                                     <Link href="/about">About Us</Link>
                                 </NavigationMenuLink>
@@ -155,7 +155,7 @@ export function MainNav() {
                             <NavigationMenuItem>
                                 <NavigationMenuLink
                                     asChild
-                                    className={`${navigationMenuTriggerStyle()} min-w-[100px] justify-center text-[#f4c762] hover:bg-[#1e293b] hover:text-[#f4c762]`}
+                                    className={`${navigationMenuTriggerStyle()} min-w-[100px] justify-center text-gray-700 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-slate-800 dark:hover:text-gray-100`}
                                 >
                                     <Link href="/contact">Contact</Link>
                                 </NavigationMenuLink>
@@ -194,7 +194,7 @@ export function MainNav() {
                         side="right"
                         className="w-[300px] sm:w-[400px]"
                     >
-                        <nav className="flex flex-col space-y-4 pt-6 text-[#f4c762]">
+                        <nav className="flex flex-col space-y-4 pt-6 text-gray-700 dark:text-gray-300">
                             <Link
                                 href={dashboard()}
                                 className="text-lg font-semibold"
