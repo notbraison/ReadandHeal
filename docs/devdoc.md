@@ -1,6 +1,9 @@
 
 orinabraison@gmail.com passpass
 
+chmod 400 "read-and-heal-key.pem"
+ssh -i "read-and-heal-key.pem" ubuntu@ec2-13-60-33-58.eu-north-1.compute.amazonaws.com
+
 navbar
 
 Exclude Footer From Certain Pages login,register

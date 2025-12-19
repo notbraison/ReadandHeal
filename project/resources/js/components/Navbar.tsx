@@ -2,6 +2,7 @@ import { Link, router, usePage } from '@inertiajs/react';
 import * as React from 'react';
 
 import { NavUser } from '@/components/nav-user';
+import { useSidebar } from '@/components/ui/sidebar';
 import { Menu } from 'lucide-react';
 
 import {
@@ -94,17 +95,36 @@ import { type SharedData } from '@/types';
 export function Navbar() {
     const { auth } = usePage<SharedData>().props;
     const isLoggedIn = Boolean(auth?.user);
+    const { state } = useSidebar();
+    const isCollapsed = state === 'collapsed';
 
     const handleLogout = () => {
         router.post(logout());
     };
 
     return (
-        // Wrapper for the entire Navbar structure
-        <div className="border-b border-gray-200 bg-white shadow-md dark:border-gray-800 dark:bg-slate-950">
+        // Responsive navbar that adapts to sidebar state
+        <div
+            className="fixed top-0 right-0 z-50 border-b border-gray-200 bg-white shadow-md transition-all duration-300 dark:border-gray-800 dark:bg-slate-950"
+            style={{
+                left: isCollapsed ? '4rem' : '16rem', // 16px (4rem) when collapsed, 64px (16rem) when expanded
+            }}
+        >
+            {' '}
             <div className="container flex h-16 max-w-[1400px] items-center justify-between px-4 sm:px-6">
-                {/* 1. Brand/Logo (Left) */}
-                <div className="flex items-center space-x-4"></div>
+                {/* 1. Brand/Logo (Left) - Show only when sidebar is collapsed */}
+                <div
+                    className={
+                        isCollapsed ? 'flex items-center space-x-2' : 'hidden'
+                    }
+                >
+                    <div className="flex h-8 w-8 items-center justify-center rounded-md bg-black dark:bg-slate-900">
+                        <span className="text-xs font-bold text-white">RH</span>
+                    </div>
+                    <span className="hidden text-sm font-semibold text-gray-900 sm:inline dark:text-gray-100">
+                        Read & Heal
+                    </span>
+                </div>
 
                 {/* 2. Desktop Navigation (Centered Links) */}
                 <div className="hidden flex-1 justify-center lg:flex">
