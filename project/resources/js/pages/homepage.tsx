@@ -4,6 +4,11 @@ import CDescription from '@/components/CDescription';
 import Services from '@/components/Services';
 import { Relationships } from '@/components/Services';
 import { Teensadolescent } from '@/components/Services';
+import { Marriage } from '@/components/Services';
+import { Businness } from '@/components/Services';
+import { Education } from '@/components/Services';
+import { TechnologyandEducation } from '@/components/Services';
+import { Parenting } from '@/components/Services';
 export default function Welcome() {
     return (
         <>
@@ -17,6 +22,11 @@ export default function Welcome() {
                 <Services/>
                 <Relationships/>
                 <Teensadolescent/>
+                <Marriage/>
+                <Businness/>
+                <Education/>
+                <TechnologyandEducation/>
+                <Parenting/>
              </div>
                     </div>
 
